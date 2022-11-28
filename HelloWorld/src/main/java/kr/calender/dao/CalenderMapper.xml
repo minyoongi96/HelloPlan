@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.calender.dao.CalenderMapper">
+	<select id="userLogin" parameterType="kr.calender.entity.User" resultType="kr.calender.entity.User">
+		select * from t_user where user_id = #{user_id} and user_pw = #{user_pw}
+	</select>
+	
+	<delete id="userDelete" parameterType="string">s
+		delete from t_user where user_id = #{user_id}
+	</delete>
+	
+	<insert id="userInsert" parameterType="kr.calender.entity.User">
+		insert into t_user values(#{user_id}, #{user_pw}, #{user_nick}, #{user_hp}, #{user_email}, to_date(to_char(SYSDATE, 'YYYY-MM-DD HH24:MI'), 'YYYY-MM-DD HH24:MI'), 'U')
+	</insert>
+	
+	<insert id="planInsert" parameterType="kr.calender.entity.Plan">
+		<!-- <if test="plan_s_date.length() lte 10 and plan_e_date.length() lte 10"> -->
+		<if test="all_day eq 1">
+		insert into t_plan(plan_seq, plan_title, plan_s_date, plan_e_date, plan_desc, user_id, plan_lat, plan_lon, all_day) values(t_plan_seq.NEXTVAL, #{plan_title}, to_date(#{plan_s_date}, 'YYYY-MM-DD HH24:MI'), to_date(#{plan_e_date}, 'YYYY-MM-DD HH24:MI'), #{plan_desc}, #{user_id}, #{plan_lat}, #{plan_lon}, #{all_day})
+		</if>
+		<!-- <if test="plan_s_date.length() gt 10 and plan_e_date.length() gt 10"> -->
+		<if test="all_day eq 0">
+		insert into t_plan(plan_seq, plan_title, plan_s_date, plan_e_date, plan_desc, user_id, plan_lat, plan_lon, all_day) values(t_plan_seq.NEXTVAL, #{plan_title}, to_date(#{plan_s_date}, 'YYYY-MM-DD HH24:MI'), to_date(#{plan_e_date}, 'YYYY-MM-DD HH24:MI'), #{plan_desc}, #{user_id}, #{plan_lat}, #{plan_lon}, #{all_day})
+		</if>
+	</insert>
+	
+	<delete id="planDelete" parameterType="Integer">
+		delete from t_plan where plan_seq = #{plan_seq}
+	</delete>
+	
+	<select id="userIDCheck" parameterType="string" resultType="Integer">
+		select count(*) from t_user where user_id = #{user_id}
+	</select>
+	
+	<select id="planCount" parameterType="string" resultType="Integer">
+		select count(*) from t_plan where user_id = #{user_id}
+	</select>
+	
+	<select id="planSelectAll" parameterType="string" resultType="kr.calender.entity.Plan">
+		select * from t_plan where user_id = #{user_id}
+	</select>
+	
+	<select id="planSelect" parameterType="Integer" resultType="kr.calender.entity.Plan">
+		select * from t_plan where plan_seq = #{plan_seq}
+	</select>
+	
+	<update id="planUpdate" parameterType="kr.calender.entity.Plan">
+		update t_plan set plan_title = #{plan_title}, plan_s_date = to_date(#{plan_s_date}, 'YYYY-MM-DD HH24:MI'), plan_e_date = to_date(#{plan_e_date}, 'YYYY-MM-DD HH24:MI'), plan_desc = #{plan_desc}, plan_lat = #{plan_lat}, plan_lon = #{plan_lon}, all_day = #{all_day} where plan_seq = #{plan_seq}
+	</update>
+</mapper>

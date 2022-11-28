@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="modal" id="addPlanModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            
+            <div class="modal-header"></div>
+            
+            <div class="modal-body">
+              <div class="container">
+                <h1 class="westagram">일정추가</h1>
+                <form action="${cpath}/planInsert.do" method="post">
+                  <main class="bigbox">
+                    <div class="row">
+                        <div class="inputs">
+                            <input type="checkbox" id ="isDay"  name="isDay" autocomplete="off" /><label for="isDay">종일</label>
+                            <label for="plan_s_date">시작 : </label>
+                            <input type="date" id="plan_s_date" name="plan_s_date" autocomplete="off"/>
+                            <input class="add-time form-control" type="time" name="plan_s_time" id="plan_s_time" disabled />
+                            <label for="plan_s_date">종료 : </label>
+                            <input type="date" id="plan_e_date" name="plan_e_date" autocomplete="off"/>
+                            <input class="add-time form-control" type="time" name="plan_e_time" id="plan_e_time" disabled />
+                          <input type="text" id ="plan_title"  name="plan_title" autocomplete="off" placeholder="제목"/>
+                            <textarea rows="3" cols="35" class="inputModal" id="plan_desc" name="plan_desc" rows="3" style='resize: none;'></textarea>
+                      </div>
+                  </div>
+                  <div class="or">
+                    <div class="line-l"></div>
+                    <div class="line-r"></div>
+                  </div>
+                    <div class="btn-container" style="text-align: center;">
+                      <button class="btn" type="submit" id="submit">추가</button>
+                      <button class="btn" type="button" id="cancel" onclick="location.href='${cpath}/index.do'">취소</button>
+                  </div>
+                  <div class="or">
+                    <div class="line-l"></div>
+                    <div class="line-r"></div>
+                  </div>
+                  <div class="btn-container" style="text-align: center;">
+                    <button class="btn2" type="submit" id="submit">맛집</button>
+                    <button class="btn2" type="button" id="button1" onclick="">카페</button>
+                    <button class="btn2" type="button" id="button1" onclick="">숙소</button>
+                    <button class="btn2" type="button" id="button1" onclick="">일정</button>
+                  </div>
+                 </main>
+              </form>
+            </div>
+         </div>
+</body>
+</html>
